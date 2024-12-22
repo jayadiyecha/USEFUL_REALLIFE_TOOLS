@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate IRR Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .calculator {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 300px;
+        }
+        .calculator-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .input-container {
+            margin-bottom: 10px;
+        }
+        .input-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+        .input-container input {
+            width: 100%;
+            height: 40px;
+            font-size: 1rem;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .calculator button {
+            width: 100%;
+            height: 50px;
+            margin-top: 10px;
+            font-size: 1.2rem;
+            border: none;
+            background: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .calculator button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="calculator-title">Real Estate IRR Calculator</div>
+        <div class="input-container">
+            <label for="assetPrice">Asset Price:</label>
+            <input type="number" id="assetPrice" placeholder="e.g., 5000000">
+        </div>
+        <div class="input-container">
+            <label for="loanAmount">Loan Amount:</label>
+            <input type="number" id="loanAmount" placeholder="e.g., 4000000">
+        </div>
+        <div class="input-container">
+            <label for="assetAppreciation">Asset Appreciation (annual %):</label>
+            <input type="number" id="assetAppreciation" placeholder="e.g., 5">
+        </div>
+        <div class="input-container">
+            <label for="homeLoanInterestRate">Home Loan Interest Rate (annual %):</label>
+            <input type="number" id="homeLoanInterestRate" placeholder="e.g., 7">
+        </div>
+        <button onclick="calculateIRR()">Calculate IRR</button>
+        <div id="result" style="margin-top: 20px; font-size: 1.2rem; font-weight: bold;"></div>
+    </div>
+
+    <script>
+        function calculateIRR() {
+            const assetPrice = parseFloat(document.getElementById('assetPrice').value);
+            const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            const assetAppreciation = parseFloat(document.getElementById('assetAppreciation').value);
+            const homeLoanInterestRate = parseFloat(document.getElementById('homeLoanInterestRate').value);
+
+            if (
+                isNaN(assetPrice) ||
+                isNaN(loanAmount) ||
+                isNaN(assetAppreciation) ||
+                isNaN(homeLoanInterestRate)
+            ) {
+                alert('Please provide valid inputs for all fields.');
+                return;
+            }
+
+            const finalIRR = 
+                assetAppreciation + 
+                ((loanAmount / (assetPrice - loanAmount)) * (assetAppreciation - homeLoanInterestRate));
+
+            document.getElementById('result').innerText = 
+                `IRR on invested capital: ${finalIRR.toFixed(2)}%`;
+        }
+    </script>
+</body>
+</html>
